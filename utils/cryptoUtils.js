@@ -1,37 +1,67 @@
 const crypto = require("crypto");
 
-// OTP encryption/decryption
-function otpEncryptDecrypt(text, key) {
-    const textBytes = Buffer.from(text);
-    const keyBytes = Buffer.from(key, "base64");
-    const cipherBytes = Buffer.alloc(textBytes.length);
+// Encrypt function
+const encrypt = (plaintext, keyMaterial, level) => {
+  const keyBuffer = Buffer.from(keyMaterial, "base64");
+  let result;
 
-    for (let i = 0; i < textBytes.length; i++) {
-        cipherBytes[i] = textBytes[i] ^ keyBytes[i % keyBytes.length];
-    }
-    return cipherBytes.toString("base64");
-}
+  switch(level) {
+    case 1: // OTP
+      const textBytes = Buffer.from(plaintext);
+      const cipherBytes = Buffer.alloc(textBytes.length);
+      for (let i=0;i<textBytes.length;i++){
+        cipherBytes[i] = textBytes[i] ^ keyBuffer[i % keyBuffer.length];
+      }
+      result = cipherBytes.toString("base64");
+      break;
 
-// AES encryption
-function aesEncrypt(text, key) {
-    const keyBuf = Buffer.from(key, "base64");
-    const iv = crypto.randomBytes(12);
-    const cipher = crypto.createCipheriv("aes-256-gcm", keyBuf, iv);
-    let encrypted = cipher.update(text, "utf8", "base64");
-    encrypted += cipher.final("base64");
-    const tag = cipher.getAuthTag().toString("base64");
+    case 2: // AES-256-GCM
+      const iv = crypto.randomBytes(12);
+      const cipher = crypto.createCipheriv("aes-256-gcm", keyBuffer, iv);
+      let encrypted = cipher.update(plaintext, "utf8", "base64");
+      encrypted += cipher.final("base64");
+      const tag = cipher.getAuthTag().toString("base64");
+      result = JSON.stringify({ ciphertext: encrypted, iv: iv.toString("base64"), tag });
+      break;
 
-    return { ciphertext: encrypted, iv: iv.toString("base64"), tag };
-}
+    case 3: // Hybrid (simulate)
+    case 4: // Classical fallback
+    default:
+      result = Buffer.from(plaintext).toString("base64");
+  }
 
-// AES decryption
-function aesDecrypt(encryptedObj, key) {
-    const keyBuf = Buffer.from(key, "base64");
-    const iv = Buffer.from(encryptedObj.iv, "base64");
-    const decipher = crypto.createDecipheriv("aes-256-gcm", keyBuf, iv);
-    decipher.setAuthTag(Buffer.from(encryptedObj.tag, "base64"));
-    const decrypted = decipher.update(encryptedObj.ciphertext, "base64", "utf8") + decipher.final("utf8");
-    return decrypted;
-}
+  return result;
+};
 
-module.exports = { otpEncryptDecrypt, aesEncrypt, aesDecrypt };
+// Decrypt function
+const decrypt = (ciphertext, keyMaterial, level) => {
+  const keyBuffer = Buffer.from(keyMaterial, "base64");
+  let result;
+
+  switch(level) {
+    case 1: // OTP
+      const cipherBytes = Buffer.from(ciphertext, "base64");
+      const plainBytes = Buffer.alloc(cipherBytes.length);
+      for (let i=0;i<cipherBytes.length;i++){
+        plainBytes[i] = cipherBytes[i] ^ keyBuffer[i % keyBuffer.length];
+      }
+      result = plainBytes.toString();
+      break;
+
+    case 2: // AES-256-GCM
+      const obj = JSON.parse(ciphertext);
+      const decipher = crypto.createDecipheriv("aes-256-gcm", keyBuffer, Buffer.from(obj.iv,"base64"));
+      decipher.setAuthTag(Buffer.from(obj.tag,"base64"));
+      result = decipher.update(obj.ciphertext,"base64","utf8") + decipher.final("utf8");
+      break;
+
+    case 3:
+    case 4:
+    default:
+      result = Buffer.from(ciphertext, "base64").toString();
+  }
+
+  return result;
+};
+
+module.exports = { encrypt, decrypt };

@@ -1,21 +1,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const keyRoutes = require("./routes/keyRoutes");
-const mailRoutes = require("./routes/mailRoutes");
+const cryptoRoutes = require("./routes/cryptoRoutes");
 
-const app = express();          // ✅ Initialize app first
+const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
-// Optional: health check route
+// Health check
 app.get("/", (req, res) => {
-  res.send("QuMail backend is live and running!");
+  res.send("QuMail Key Manager & Crypto Service is running!");
 });
 
-// Routes
+// API routes
 app.use("/api", keyRoutes);
-app.use("/api", mailRoutes);
+app.use("/api", cryptoRoutes);
 
-// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`QuMail backend running on port ${PORT}`));

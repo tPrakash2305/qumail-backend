@@ -1,15 +1,16 @@
 const crypto = require("crypto");
-const keysDB = require("../models/keyDB");
 
-// Request a new key
+// In-memory keys (temporary)
+const keysDB = {};
+
 const requestKey = (req, res) => {
-    const keyId = crypto.randomUUID();
-    const keyBytes = crypto.randomBytes(32); // 256-bit
-    const keyMaterial = keyBytes.toString("base64");
+  const keyId = crypto.randomUUID();
+  const keyBytes = crypto.randomBytes(32); // 256-bit key
+  const keyMaterial = keyBytes.toString("base64");
 
-    keysDB[keyId] = keyMaterial;
+  keysDB[keyId] = keyMaterial; // store in memory
 
-    res.json({ keyId, keyMaterial });
+  res.json({ keyId, keyMaterial });
 };
 
-module.exports = { requestKey };
+module.exports = { requestKey, keysDB };
