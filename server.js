@@ -1,3 +1,7 @@
+app.get("/", (req, res) => {
+  res.send("QuMail backend is live and running!");
+});
+
 const express = require("express");
 const bodyParser = require("body-parser");
 
