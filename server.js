@@ -1,22 +1,23 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+//const express = require("express");
+//const bodyParser = require("body-parser");
+//const keyRoutes = require("./routes/keyRoutes");
 
-const keyRoutes = require("./routes/keyRoutes");
-const cryptoRoutes = require("./routes/cryptoRoutes");
+import express from "express";
+import bodyParser from "body-parser";
+import keyRoutes from "./routes/keyRoutes.js";
+import mailRoutes from "./routes/mailRoutes.js";
 
 const app = express();
-app.use(cors());
 app.use(bodyParser.json());
 
-// Health check
+//  Health check route
 app.get("/", (req, res) => {
-  res.send("QuMail Key Manager & Crypto Service is running!");
+  res.send(" QuMail Key Manager is live and ready to distribute keys!");
 });
 
-// API routes
+//  Mount API routes
 app.use("/api", keyRoutes);
-app.use("/api", cryptoRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`QuMail backend running on port ${PORT}`));
+// Start Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(` QuMail Key Manager running on port ${PORT}`));

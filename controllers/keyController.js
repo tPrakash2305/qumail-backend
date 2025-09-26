@@ -1,16 +1,16 @@
-const crypto = require("crypto");
+const { generateKey, determineSecurityLevel } = require('../utils/cryptoUtils');
 
-// In-memory keys (temporary)
-const keysDB = {};
+// Controller to handle key request
+exports.requestKey = (req, res) => {
+  // Generate a unique ID for each key
+  const keyId = Date.now().toString();
+  
+  // Generate the cryptographic key
+  const key = generateKey();
 
-const requestKey = (req, res) => {
-  const keyId = crypto.randomUUID();
-  const keyBytes = crypto.randomBytes(32); // 256-bit key
-  const keyMaterial = keyBytes.toString("base64");
+  // Determine security level
+  const securityLevel = determineSecurityLevel(key);
 
-  keysDB[keyId] = keyMaterial; // store in memory
-
-  res.json({ keyId, keyMaterial });
+  // Respond with key details
+  res.json({ keyId, key, securityLevel });
 };
-
-module.exports = { requestKey, keysDB };
