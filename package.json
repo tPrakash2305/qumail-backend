@@ -1,11 +1,43 @@
 {
   "name": "qumail_backend",
   "version": "1.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2"
-  }
+    "better-sqlite3": "^9.6.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "description": "",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://tPrakash2305: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@github.com/tPrakash2305/qumail-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tPrakash2305/qumail-backend/issues"
+  },
+  "homepage": "https://github.com/tPrakash2305/qumail-backend#readme"
 }
