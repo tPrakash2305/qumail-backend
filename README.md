@@ -2,7 +2,7 @@
 
 A secure, quantum-resistant email key management backend service built with Node.js and Express.
 
-## 🚀 Features
+## Features
 
 - **Quantum Key Management**: Generate and manage quantum-resistant encryption keys
 - **Mail Metadata Handling**: Store and retrieve encrypted mail metadata
@@ -11,7 +11,7 @@ A secure, quantum-resistant email key management backend service built with Node
 - **CORS Support**: Cross-origin resource sharing enabled
 - **Comprehensive Testing**: Jest test suite included
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -19,7 +19,7 @@ Before you begin, ensure you have the following installed:
 - **npm** (v6.x or higher)
 - **Git**
 
-## 🔧 Installation
+## Installation
 
 1. **Clone the repository**
 
@@ -53,7 +53,7 @@ Before you begin, ensure you have the following installed:
 
    The server will start at `http://localhost:4000`
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 QuMail_Backend/
@@ -80,7 +80,7 @@ QuMail_Backend/
 └── jest.config.js      # Jest configuration
 ```
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Root
 
@@ -101,7 +101,7 @@ QuMail_Backend/
 - `PUT /api/mails/:id` - Update mail metadata
 - `DELETE /api/mails/:id` - Delete mail metadata
 
-## 🧪 Testing
+## Testing
 
 Run the test suite:
 
@@ -113,11 +113,11 @@ npm test
 npm run test:watch
 ```
 
-## 🔒 Security Best Practices
+## Security Best Practices
 
 ### Important Security Notes
 
-⚠️ **Never commit secrets to version control!**
+**WARNING: Never commit secrets to version control!**
 
 1. **Use Environment Variables**
 
@@ -151,7 +151,7 @@ npm run test:watch
    - GitHub's push protection is already active on this repository
    - This prevents accidental secret commits
 
-## 🛠️ Development
+## Development
 
 ### Adding New Features
 
@@ -183,7 +183,7 @@ npm run test:watch
 - Follow existing code patterns
 - Write tests for new features
 
-## 📝 Environment Variables
+## Environment Variables
 
 Create a `.env` file with the following variables:
 
@@ -203,7 +203,7 @@ DB_PATH=./data/qumail.db
 
 **Remember:** Never commit the `.env` file to version control!
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -211,31 +211,31 @@ DB_PATH=./data/qumail.db
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the ISC License.
 
-## 👥 Authors
+## Authors
 
 - **tPrakash2305** - [GitHub Profile](https://github.com/tPrakash2305)
 
-## 🐛 Bug Reports & Feature Requests
+## Bug Reports & Feature Requests
 
 Please use the [GitHub Issues](https://github.com/tPrakash2305/qumail-backend/issues) page to report bugs or request features.
 
-## 📞 Support
+## Support
 
 For questions or support, please open an issue on GitHub.
 
-## 🔄 Recent Updates
+## Recent Updates
 
 ### Security Improvements
 
-- ✅ Removed hardcoded secrets from codebase
-- ✅ Implemented environment variable usage
-- ✅ Added security documentation
-- ✅ Enabled GitHub secret scanning protection
+- Removed hardcoded secrets from codebase
+- Implemented environment variable usage
+- Added security documentation
+- Enabled GitHub secret scanning protection
 
 ---
 
-**Made with ❤️ for secure quantum-resistant communications**
+**Built for secure quantum-resistant communications**
